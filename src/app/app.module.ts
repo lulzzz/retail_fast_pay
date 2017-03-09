@@ -14,6 +14,8 @@ import {HomePage} from '../pages/home/home';
 import {TabsPage} from '../pages/tabs/tabs';
 import {ClientFastOrders} from "../services/ddp/collections/ClientFastOrders";
 import {AppService} from "./app.service";
+import {HttpModule} from "@angular/http";
+import {FormsModule} from "@angular/forms";
 
 @NgModule({
             declarations   : [
@@ -24,6 +26,8 @@ import {AppService} from "./app.service";
               TabsPage
             ],
             imports        : [
+              FormsModule,
+              HttpModule,
               IonicModule.forRoot(MyApp)
             ],
             bootstrap      : [IonicApp],
