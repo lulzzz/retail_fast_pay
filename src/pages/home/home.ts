@@ -5,6 +5,8 @@ import {
   AlertController
 } from 'ionic-angular';
 import {BarcodeScanner} from 'ionic-native';
+import {MeteorObservable} from "meteor-rxjs";
+import {AppService} from "../../app/app.service";
 
 @Component({
              selector   : 'page-home',
@@ -12,7 +14,7 @@ import {BarcodeScanner} from 'ionic-native';
            })
 export class HomePage {
   
-  constructor(public navCtrl: NavController, public alertCtrl: AlertController) {
+  constructor(public navCtrl: NavController, public alertCtrl: AlertController, protected appService: AppService) {
     
   }
   
@@ -20,12 +22,21 @@ export class HomePage {
     BarcodeScanner.scan()
                   .then((result) => {
                     if (!result.cancelled) {
-                      let alert = this.alertCtrl.create({
-                                                          title   : 'New Friend!',
-                                                          subTitle: result.text,
-                                                          buttons : ['OK']
-                                                        });
-                      alert.present();
+                      MeteorObservable.call("client.add_fast_order", {
+                        license        : this.appService.data.license,
+                        client_order_id: result.text,
+                        additional_data: {
+                          customerEmail: this.appService.data.customerEmail,
+                          refNumber    : this.appService.data.refNumber
+                        }
+                      }).subscribe((res: any) => {
+                        let alert = this.alertCtrl.create({
+                                                            title   : 'Well done!',
+                                                            subTitle: res,
+                                                            buttons : ['OK']
+                                                          });
+                        alert.present();
+                      }, err => console.log(err));
                     }
                   })
                   .catch((err) => {
@@ -37,12 +48,22 @@ export class HomePage {
     BarcodeScanner.scan()
                   .then((result) => {
                     if (!result.cancelled) {
-                      let alert = this.alertCtrl.create({
-                                                          title   : 'New Friend!',
-                                                          subTitle: result.text,
-                                                          buttons : ['OK']
-                                                        });
-                      alert.present();
+                      MeteorObservable.call("client.add_fast_order", {
+                        license        : this.appService.data.license,
+                        client_order_id: "",
+                        product_id     : result.text,
+                        additional_data: {
+                          customerEmail: this.appService.data.customerEmail,
+                          refNumber    : this.appService.data.refNumber,
+                        }
+                      }).subscribe((res: any) => {
+                        let alert = this.alertCtrl.create({
+                                                            title   : 'Well done!',
+                                                            subTitle: res,
+                                                            buttons : ['OK']
+                                                          });
+                        alert.present();
+                      }, err => console.log(err));
                     }
                   })
                   .catch((err) => {
@@ -50,4 +71,21 @@ export class HomePage {
                   })
   }
   
+  dummyData() {
+    MeteorObservable.call("client.add_fast_order", {
+      license        : this.appService.data.license,
+      client_order_id: "",
+      additional_data: {
+        customerEmail: this.appService.data.customerEmail,
+        refNumber    : this.appService.data.refNumber
+      }
+    }).subscribe((res: any) => {
+      let alert = this.alertCtrl.create({
+                                          title   : 'Well done!',
+                                          subTitle: res,
+                                          buttons : ['OK']
+                                        });
+      alert.present();
+    }, err => console.log(err));
+  }
 }

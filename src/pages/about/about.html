@@ -8,15 +8,17 @@
 
 <ion-content padding>
   <ion-list>
-
     <ion-item>
-      <ion-label fixed>Email</ion-label>
-      <ion-input type="text" value=""></ion-input>
+      <ion-label fixed>License</ion-label>
+      <ion-input type="text" name="license" [(ngModel)]="appService.data.license"></ion-input>
     </ion-item>
-
+    <ion-item>
+      <ion-label fixed>Customer Email</ion-label>
+      <ion-input type="text" name="customer email" [(ngModel)]="appService.data.customerEmail"></ion-input>
+    </ion-item>
     <ion-item>
       <ion-label fixed>#Ref</ion-label>
-      <ion-input type="number"></ion-input>
+      <ion-input type="number" name="ref" [(ngModel)]="appService.data.refNumber"></ion-input>
     </ion-item>
 
   </ion-list>
