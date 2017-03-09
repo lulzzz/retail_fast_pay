@@ -1,0 +1,40 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>Home</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-card>
+
+    <ion-card-header>
+      <h2>Add product</h2>
+    </ion-card-header>
+
+    <ion-card-content>
+      <div style="text-align: center">
+        <button ion-button icon-only (click)="scanAddToCart()">
+          <ion-icon name="add-circle">&nbsp;Add To Cart</ion-icon>
+        </button>
+      </div>
+    </ion-card-content>
+
+  </ion-card>
+  <ion-card>
+
+    <ion-card-header>
+      <h2>Fast Pay</h2>
+    </ion-card-header>
+
+    <ion-card-content>
+      <div style="text-align: center">
+        <button ion-button icon-only (click)="scan()">
+          <ion-icon name="heart">&nbsp;Pay</ion-icon>
+        </button>
+      </div>
+    </ion-card-content>
+
+  </ion-card>
+
+
+</ion-content>
