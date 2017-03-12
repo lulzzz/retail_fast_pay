@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {NavController, AlertController} from "ionic-angular";
-import {HomePage} from "../home/home";
+import {TabsPage} from "../tabs/tabs";
 
 @Component({
              selector: 'login',
@@ -16,7 +16,9 @@ export class LoginComponent implements OnInit {
   
   ngOnInit() {
     if (Meteor.user())
-      this.navController.popTo(HomePage);
+      this.navController.setRoot(TabsPage, {}, {
+        animate: true
+      });
   }
   
   signin() {
@@ -29,7 +31,9 @@ export class LoginComponent implements OnInit {
                                           });
         alert.present();
       } else {
-        this.navController.popTo(HomePage);
+        this.navController.setRoot(TabsPage, {}, {
+          animate: true
+        });
       }
     })
   }

@@ -5,7 +5,6 @@ import {
   AlertController
 } from 'ionic-angular';
 import {BarcodeScanner} from 'ionic-native';
-import {MeteorObservable} from "meteor-rxjs";
 import {AppService} from "../../app/app.service";
 import {Http} from "@angular/http";
 import {AboutPage} from "../about/about";
