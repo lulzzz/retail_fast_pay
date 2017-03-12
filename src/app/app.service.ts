@@ -4,8 +4,8 @@ import {Injectable} from '@angular/core';
 export class AppService {
   data = {
     customerEmail: "roni_cost@example.com",
-    refNumber    : Math.random(),
-    license      : 'abc123'
+    refNumber: parseInt(Math.random() * 1000000 + ""),
+    userId: ""
   };
   
   constructor() { }

@@ -9,8 +9,12 @@
 <ion-content padding>
   <ion-list>
     <ion-item>
-      <ion-label fixed>License</ion-label>
-      <ion-input type="text" name="license" [(ngModel)]="appService.data.license"></ion-input>
+      <ion-label>Users</ion-label>
+      <ion-select [(ngModel)]="appService.data.userId">
+        <ion-option *ngFor="let user of users;trackBy:user?._id" [value]="user['_id']"
+                    [selected]="user['_id']==appService.data.userId">{{user['username']}}
+        </ion-option>
+      </ion-select>
     </ion-item>
     <ion-item>
       <ion-label fixed>Customer Email</ion-label>

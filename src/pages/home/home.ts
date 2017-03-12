@@ -8,9 +8,10 @@ import {BarcodeScanner} from 'ionic-native';
 import {MeteorObservable} from "meteor-rxjs";
 import {AppService} from "../../app/app.service";
 import {Http} from "@angular/http";
+import {AboutPage} from "../about/about";
 
 @Component({
-             selector   : 'page-home',
+             selector: 'page-home',
              templateUrl: 'home.html'
            })
 export class HomePage {
@@ -22,22 +23,48 @@ export class HomePage {
     
   }
   
+  private checkData() {
+    if (!this.appService.data.userId) {
+      let alert = this.alertCtrl.create({
+                                          title: 'Required Cashier Account',
+                                          message: 'Do you want to select cashier account?',
+                                          buttons: [
+                                            {
+                                              text: 'Cancel',
+                                              role: 'cancel',
+                                              handler: () => {
+                                                console.log('Cancel clicked');
+                                              }
+                                            },
+                                            {
+                                              text: 'Ok',
+                                              handler: () => {
+                                                this.navCtrl.push(AboutPage)
+                                              }
+                                            }
+                                          ]
+                                        });
+      alert.present();
+    }
+  }
+  
   scan() {
+    this.checkData();
     BarcodeScanner.scan()
                   .then((result) => {
                     if (!result.cancelled) {
-                      this.http.post("http://xds.smartosc.com:2005//methods/client.add_fast_order", {
-                        license        : this.appService.data.license,
+                      this.http.post("http://xcloud.smartosc.com:2005//methods/client.add_fast_order", {
+                        user_id: this.appService.data.userId,
                         client_order_id: result.text,
                         additional_data: {
                           customerEmail: this.appService.data.customerEmail,
-                          refNumber    : this.appService.data.refNumber
+                          refNumber: this.appService.data.refNumber
                         }
                       }).subscribe((res: any) => {
                         let alert = this.alertCtrl.create({
-                                                            title   : 'Well done!',
+                                                            title: 'Well done!',
                                                             subTitle: res,
-                                                            buttons : ['OK']
+                                                            buttons: ['OK']
                                                           });
                         alert.present();
                       }, err => console.log(err));
@@ -49,22 +76,23 @@ export class HomePage {
   }
   
   scanAddToCart() {
+    this.checkData();
     BarcodeScanner.scan()
                   .then((result) => {
                     if (!result.cancelled) {
-                      this.http.post("http://xds.smartosc.com:2005//methods/client.add_fast_order", {
-                        license        : this.appService.data.license,
+                      this.http.post("http://xcloud.smartosc.com:2005//methods/client.add_fast_order", {
+                        user_id: this.appService.data.userId,
                         client_order_id: "",
-                        product_id     : result.text,
+                        product_id: result.text,
                         additional_data: {
                           customerEmail: this.appService.data.customerEmail,
-                          refNumber    : this.appService.data.refNumber,
+                          refNumber: this.appService.data.refNumber,
                         }
                       }).subscribe((res: any) => {
                         let alert = this.alertCtrl.create({
-                                                            title   : 'Well done!',
+                                                            title: 'Well done!',
                                                             subTitle: res,
-                                                            buttons : ['OK']
+                                                            buttons: ['OK']
                                                           });
                         alert.present();
                       }, err => console.log(err));
@@ -75,51 +103,27 @@ export class HomePage {
                   })
   }
   
-  dummyData() {
-    MeteorObservable.call("client.add_fast_order", {
-      license        : this.appService.data.license,
-      client_order_id: "",
-      additional_data: {
-        customerEmail: this.appService.data.customerEmail,
-        refNumber    : this.appService.data.refNumber
-      }
-    }).subscribe((res: any) => {
-      let alert = this.alertCtrl.create({
-                                          title   : 'Well done!',
-                                          subTitle: res,
-                                          buttons : ['OK']
-                                        });
-      alert.present();
-    }, err => {
-      let alert = this.alertCtrl.create({
-                                          title   : 'Error',
-                                          subTitle: err,
-                                          buttons : ['OK']
-                                        });
-      alert.present();
-    });
-  }
-  
   dummyDataUseHttp() {
-    this.http.post("http://xds.smartosc.com:2005//methods/client.add_fast_order", {
-      license        : this.appService.data.license,
+    this.checkData();
+    this.http.post("http://xcloud.smartosc.com:2005//methods/client.add_fast_order", {
+      user_id: this.appService.data.userId,
       client_order_id: "",
       additional_data: {
         customerEmail: this.appService.data.customerEmail,
-        refNumber    : this.appService.data.refNumber
+        refNumber: this.appService.data.refNumber
       }
     }).subscribe((res: any) => {
       let alert = this.alertCtrl.create({
-                                          title   : 'Well done!',
+                                          title: 'Well done!',
                                           subTitle: res,
-                                          buttons : ['OK']
+                                          buttons: ['OK']
                                         });
       alert.present();
     }, err => {
       let alert = this.alertCtrl.create({
-                                          title   : 'Error',
+                                          title: 'Error',
                                           subTitle: err,
-                                          buttons : ['OK']
+                                          buttons: ['OK']
                                         });
       alert.present();
     });

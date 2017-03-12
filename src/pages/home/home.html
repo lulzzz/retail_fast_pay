@@ -27,7 +27,26 @@
     </ion-card-header>
 
     <ion-card-content>
-      <div style="text-align: center">
+      <ion-list>
+
+        <ion-item>
+          <ion-label fixed>Username</ion-label>
+          <ion-input type="text" value="customer@gmail.com" disabled=""></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label fixed>Point</ion-label>
+          <ion-input type="text" value="2000 points"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-range min="-200" max="200" [(ngModel)]="saturation" color="secondary">
+            <ion-label range-left>0</ion-label>
+            <ion-label range-right>2000</ion-label>
+          </ion-range>
+        </ion-item>
+
+      </ion-list>
+      <div style="text-align: center;margin-top: 15px">
         <button ion-button icon-only (click)="scan()">
           <ion-icon name="heart">&nbsp;Pay</ion-icon>
         </button>
@@ -35,37 +54,38 @@
     </ion-card-content>
 
   </ion-card>
-  <ion-card>
 
-    <ion-card-header>
-      <h2>Test</h2>
-    </ion-card-header>
+  <!--<ion-card>-->
 
-    <ion-card-content>
-      <div style="text-align: center">
-        <button ion-button icon-only (click)="dummyData()">
-          <ion-icon name="add-circle">&nbsp;Dummy data</ion-icon>
-        </button>
-      </div>
-    </ion-card-content>
+  <!--<ion-card-header>-->
+  <!--<h2>Test</h2>-->
+  <!--</ion-card-header>-->
 
-  </ion-card>
+  <!--<ion-card-content>-->
+  <!--<div style="text-align: center">-->
+  <!--<button ion-button icon-only (click)="dummyData()">-->
+  <!--<ion-icon name="add-circle">&nbsp;Dummy data</ion-icon>-->
+  <!--</button>-->
+  <!--</div>-->
+  <!--</ion-card-content>-->
 
-  <ion-card>
+  <!--</ion-card>-->
 
-    <ion-card-header>
-      <h2>Test</h2>
-    </ion-card-header>
+  <!--<ion-card>-->
 
-    <ion-card-content>
-      <div style="text-align: center">
-        <button ion-button icon-only (click)="dummyDataUseHttp()">
-          <ion-icon name="add-circle">Use HTTP</ion-icon>
-        </button>
-      </div>
-    </ion-card-content>
+  <!--<ion-card-header>-->
+  <!--<h2>Test</h2>-->
+  <!--</ion-card-header>-->
 
-  </ion-card>
+  <!--<ion-card-content>-->
+  <!--<div style="text-align: center">-->
+  <!--<button ion-button icon-only (click)="dummyDataUseHttp()">-->
+  <!--<ion-icon name="add-circle">Use HTTP</ion-icon>-->
+  <!--</button>-->
+  <!--</div>-->
+  <!--</ion-card-content>-->
+
+  <!--</ion-card>-->
 
 
 </ion-content>

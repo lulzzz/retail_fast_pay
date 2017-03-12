@@ -16,10 +16,13 @@ import {ClientFastOrders} from "../services/ddp/collections/ClientFastOrders";
 import {AppService} from "./app.service";
 import {HttpModule} from "@angular/http";
 import {FormsModule} from "@angular/forms";
+import {LoginComponent} from "../pages/login/login";
+import {UserCollection} from "../services/ddp/collections/users";
 
 @NgModule({
             declarations   : [
               MyApp,
+              LoginComponent,
               AboutPage,
               ContactPage,
               HomePage,
@@ -33,6 +36,7 @@ import {FormsModule} from "@angular/forms";
             bootstrap      : [IonicApp],
             entryComponents: [
               MyApp,
+              LoginComponent,
               AboutPage,
               ContactPage,
               HomePage,
@@ -41,7 +45,8 @@ import {FormsModule} from "@angular/forms";
             providers      : [
               {provide: ErrorHandler, useClass: IonicErrorHandler},
               AppService,
-              ClientFastOrders
+              ClientFastOrders,
+              UserCollection
             ]
           })
 export class AppModule {
